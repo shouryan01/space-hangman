@@ -14,16 +14,16 @@ var context = myStickman.getContext("2d");
 
 function cipherRot10(str) {
     str = str.slice(5, -5);
-    return str.split("").reverse().join("");
+    return str
+    // return str.split("").reverse().join("");
 }
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const title = urlParams.get('title');
+var title = urlParams.get('title');
 
 title = cipherRot10(title);
 console.log(title);
-
 
 //generate alphabet button
 function generateButton() {
