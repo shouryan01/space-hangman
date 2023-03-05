@@ -44,6 +44,21 @@ def bot():
     if 'hangman' in incoming_msg:
         msg.body('https://shouryan01.github.io/space-hangman/?title={}'.format(title))
         responded = True
+    if 'revolution' in incoming_msg:
+        msg.body('Revolution is the movement of a planet around the Sun. Check this link out for an AR experience! https://adobeaero.app.link/tZVT9zeaVxb')
+        responded = True
+    if 'far' in incoming_msg:
+        msg.body('The Moon is 238,900 mi away from the Earth. Check this link out for an AR experience! https://adobeaero.app.link/w4iJ47ioVxby')
+        responded = True
+    if 'face' in incoming_msg:
+        msg.body('The Moon orbits Earth once every 27.3 days and spins on its axis once every 27.3 days. This means that although the Moon is rotating, it always keeps one face toward us. Check this link out for an AR experience! https://adobeaero.app.link/zzecFx0oVxb')
+        responded = True
+    if 'sun' in incoming_msg:
+        msg.body('The Sun is Sun is 864,000 miles in diameter. Check this link out for an AR experience! https://adobeaero.app.link/Bwsa8XhpVxb')
+        responded = True
+    if 'jupiter' in incoming_msg:
+        msg.body('Jupiter is the largest planet in the Solar System, at a radius of 43,441 mi. Check this link out for an AR experience! https://adobeaero.app.link/PFBFPXzpVxb')
+        responded = True
         
     if not responded:
         msg.body('Error, sorry!')
