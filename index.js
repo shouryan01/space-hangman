@@ -14,8 +14,8 @@ var context = myStickman.getContext("2d");
 
 function cipherRot10(str) {
     str = str.slice(5, -5);
-    return str
-    // return str.split("").reverse().join("");
+    str = str.split("").reverse().join("")
+    return str.toLowerCase();
 }
 
 const queryString = window.location.search;
@@ -63,41 +63,20 @@ function generateNumbers() {
 function handleClick(event) {
   const isButton = event.target.nodeName === "BUTTON";
   if (isButton) {
-    //console.dir(event.target.id);
-    //console.log(isButton);
     const buttonId = document.getElementById(event.target.id);
     buttonId.classList.add("selected");
   }
   return;
 }
 
-//word array
-const categories = [
-  [
-    "everton",
-    "liverpool",
-    "swansea",
-    "chelsea",
-    "hull",
-    "manchester-city",
-    "newcastle-united"
-  ],
-  ["alien", "dirty-harry", "gladiator", "finding-nemo", "jaws"],
-  ["manchester", "milan", "madrid", "amsterdam", "prague"]
-];
-
-//set question,answer and hint
-
 function setAnswer() {
   chosenWord = title;
   answer = chosenWord;
-//   hint = hints[categoryOrder][wordOrder];
   answerDisplay.innerHTML = generateAnswerDisplay(chosenWord);
 }
 
 function generateAnswerDisplay(word) {
   var wordArray = word.split("");
-  //console.log(wordArray);
   for (var i = 0; i < answer.length; i++) {
     if (wordArray[i] !== "-") {
       wordDisplay.push("_");
@@ -124,14 +103,22 @@ function init() {
   num_container.innerHTML = generateNumbers();
   container.addEventListener("click", handleClick);
   num_container.addEventListener("click", handleClick);
+  
+  const answerArray = answer.split("");
+  for (var j = 0; j < answer.length; j++) {
+    if (" " === answerArray[j]) {
+        wordDisplay[j] = " ";
+    }
+  }
+
   console.log(answer);
-  //console.log(hint);
 }
 
 window.onload = init();
 
 //reset (play again)
 buttonReset.addEventListener("click", init);
+
 
 //guess click
 function guess(event) {
@@ -149,7 +136,6 @@ function guess(event) {
           console.log(guessWord);
           answerDisplay.innerHTML = wordDisplay.join(" ");
           winningCheck = wordDisplay.join("");
-          //console.log(winningCheck)
           counter += 1;
         }
       }
@@ -171,8 +157,7 @@ function guess(event) {
       return;
     }
     console.log(wordDisplay);
-    //console.log(counter);
-    //console.log(life);
+
     if (answer === winningCheck) {
       livesDisplay.innerHTML = `YOU WIN!`;
       return;
@@ -186,7 +171,6 @@ num_container.addEventListener("click", guess);
 // Hangman
 function animate() {
   drawArray[life]();
-  //console.log(drawArray[life]);
 }
 
 function canvas() {
