@@ -6,7 +6,7 @@ from datetime import date
 import random
 import string
 
-API_KEY = 'UkZXQJvt2dXeweqdgNBdBghnfVwDTElEoJnCbqoT'
+
 
 apod_parameters = {
     'api_key': API_KEY,
