@@ -4,6 +4,8 @@ from twilio.twiml.messaging_response import MessagingResponse
 import requests
 from datetime import date, timedelta
 
+API_KEY = 'UkZXQJvt2dXeweqdgNBdBghnfVwDTElEoJnCbqoT'
+
 apod_parameters = {
     'api_key': API_KEY,
     'date': date.today()
@@ -11,6 +13,15 @@ apod_parameters = {
 response = requests.get("https://api.nasa.gov/planetary/apod", params = apod_parameters)
 data = response.json()
 title, explanation, url = data['title'], data['explanation'], data['url']
+
+def caesar(plaintext, shift):
+    output = ""
+    for ch in plaintext:
+        output += chr(ord(ch) + shift)
+    return output
+
+title = caesar(title, 10)
+title = title.replace(' ', '%20')
 
 app = Flask(__name__)
 
@@ -29,7 +40,7 @@ def bot():
         msg.body(explanation)
         responded = True
     if 'hangman' in incoming_msg:
-        msg.body('Hangman game')
+        msg.body('https://shouryan01.github.io/space-hangman/?title={}'.format(title))
         responded = True
         
     if not responded:

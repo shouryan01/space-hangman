@@ -1,21 +1,27 @@
 //const
 const container = document.getElementById("alphabetButtons");
+const num_container = document.getElementById("numButtons");
 var answerDisplay = document.getElementById("hold");
 var answer = "";
 var hint = "";
 var life = 10;
 var wordDisplay = [];
 var winningCheck = "";
-const containerHint = document.getElementById("clue");
-// const buttonHint = document.getElementById("hint");
 const buttonReset = document.getElementById("reset");
 const livesDisplay = document.getElementById("mylives");
 var myStickman = document.getElementById("stickman");
 var context = myStickman.getContext("2d");
 
+function cipherRot10(str) {
+    str = str.slice(5, -5);
+    return str.split("").reverse().join("");
+}
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const title = urlParams.get('title');
+
+title = cipherRot10(title);
 console.log(title);
 
 
@@ -36,6 +42,23 @@ function generateButton() {
 
   return buttonsHTML;
 }
+
+function generateNumbers() {
+    var buttonsHTML = "0123456789"
+      .split("")
+      .map(
+        (letter) =>
+          `<button
+           class = "numButtonJS" 
+           id="${letter}"
+           >
+          ${letter}
+          </button>`
+      )
+      .join("");
+  
+    return buttonsHTML;
+  }
 
 function handleClick(event) {
   const isButton = event.target.nodeName === "BUTTON";
@@ -98,7 +121,9 @@ function init() {
   livesDisplay.innerHTML = `You have ${life} lives!`;
   setAnswer();
   container.innerHTML = generateButton();
+  num_container.innerHTML = generateNumbers();
   container.addEventListener("click", handleClick);
+  num_container.addEventListener("click", handleClick);
   console.log(answer);
   //console.log(hint);
 }
@@ -156,6 +181,7 @@ function guess(event) {
 }
 
 container.addEventListener("click", guess);
+num_container.addEventListener("click", guess);
 
 // Hangman
 function animate() {
