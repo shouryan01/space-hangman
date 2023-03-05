@@ -2,7 +2,9 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 
 import requests
-from datetime import date, timedelta
+from datetime import date
+import random
+import string
 
 API_KEY = 'UkZXQJvt2dXeweqdgNBdBghnfVwDTElEoJnCbqoT'
 
@@ -14,13 +16,13 @@ response = requests.get("https://api.nasa.gov/planetary/apod", params = apod_par
 data = response.json()
 title, explanation, url = data['title'], data['explanation'], data['url']
 
-def caesar(plaintext, shift):
-    output = ""
-    for ch in plaintext:
-        output += chr(ord(ch) + shift)
-    return output
+def caesar(plaintext):
+    plaintext = plaintext[::-1]
+    p1 = plaintext[:len(plaintext)//2]
+    p2 = plaintext[len(plaintext)//2:]
+    return ''.join(random.choices(string.ascii_letters, k=5)) + plaintext + ''.join(random.choices(string.ascii_letters, k=5))
 
-title = caesar(title, 10)
+title = caesar(title)
 title = title.replace(' ', '%20')
 
 app = Flask(__name__)
